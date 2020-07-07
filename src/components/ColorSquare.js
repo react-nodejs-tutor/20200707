@@ -8,14 +8,14 @@ class Color extends Component {
 		const { color, active, onClick } = this.props;
 
 		const style = {
-			backgroundColor: color
+			backgroundColor: color,
 		};
 
 		return (
 			<div
 				className={`Color ${active ? 'active' : ''}`}
 				style={style}
-				onClick={onClick}
+				onClick={() => onClick(color)}
 			/>
 		);
 	}
@@ -23,10 +23,25 @@ class Color extends Component {
 
 class ColorSquare extends Component {
 	render() {
+		const { selected, number, changeColor } = this.props;
+
+		const style = {
+			width: 200 + 10 * number,
+			height: 200 + 10 * number,
+		};
+
 		return (
-			<div className="ColorSquare">
-				{colors.map(color => {
-					return <Color key={color} color={color} />;
+			<div className="ColorSquare" style={style}>
+				{colors.map((color) => {
+					return (
+						<Color
+							key={color}
+							color={color}
+							active={selected}
+							number={number}
+							onClick={changeColor}
+						/>
+					);
 				})}
 			</div>
 		);
